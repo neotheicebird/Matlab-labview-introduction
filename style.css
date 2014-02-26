@@ -1,0 +1,9 @@
+#slide-1 {
+  background: url('media/waves.jpg');
+  background-size: cover;
+  color: #100c08;
+}
+
+th {
+      text-align:left;
+}
