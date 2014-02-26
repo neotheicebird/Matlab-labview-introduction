@@ -53,7 +53,76 @@ Why do we want to avoid states and objects?
 * Composability - DRY (Don't repeat yourself)
 
 --
+###Variables
+Numbers and matrices:
+```matlab
+A = 1; % all numbers are floating-point value
 
+empty_list = [];
+
+my_list = [1 5 2 4 3];
+
+list_1 = 1:10; % : operator is used to make equidistant list of numbers
+
+list_2 = zeros(4,5); % A 4x5 matrix of zeros
+
+list_3 = ones(5); % A 5x5 matrix of ones
+
+list_4 = 0:0.5:5;
+
+list_5 = linspace(1,5,11)
+```
+--
+###Variables
+Strings:
+```matlab
+str = 'Hello, world';
+
+blank_string = blanks(n); % a string which is n spaces
+
+string_array = ['one  '; 'two  '; 'three']; % 2D array of chars
+string_array =
+
+one
+two
+three
+
+concat_strings = ['Nice' 'day' 'right?'];
+concat_strings = nicedayright?
+
+concat_strings = strcat('remove  ', 'trailing   ', 'spaces   ');
+concat_strings = 'removetrailingspaces'
+```
+--
+###Variables
+Cells:
+```matlab
+battery = {}; % a cell is a container which can hold any variable
+
+happy_strings = {'one', 'two', 'three'}
+happy_strings{2}
+ans = two
+
+cell_array = {'text', 2, [1 2 3], magic(3)}
+cell_array =
+{
+  [1,1] = text
+  [1,2] =  2
+  [1,3] =
+     1   2   3
+  [1,4] =
+     8   1   6
+     3   5   7
+     4   9   2
+}
+```
+--
+###Variables
+Struct:
+```matlab
+
+```
+--
 ###Arithmetic operations
 
 <table style="width:800px">
@@ -101,23 +170,16 @@ Why do we want to avoid states and objects?
 ```matlab
 A = 1:5;
 ```
-######Sum of all elements:
+Sum of all elements:
 ```matlab
 sum(A)
 ans =  15
 ```
-######Cumulative sum:
+Cumulative sum:
 ```matlab
 cumsum(A)
 ans =
     1    3    6   10   15
-```
-
-######Differences between consecutive elements:
-```matlab
-diff(A)
-ans =
-   1   1   1   1
 ```
 --
 
@@ -125,12 +187,12 @@ ans =
 ```matlab
 A = 1:5;
 ```
-######Product:
+Product:
 ```matlab
 prod(A)
 ans =  120
 ```
-######Cumulative product:
+Cumulative product:
 ```matlab
 cumprod(A)
 ans =
