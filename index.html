@@ -565,7 +565,7 @@ s(<span class="number">1</span>) =
     <section class="slide-content"><h3 id="variables">Variables</h3>
 <p>Structure</p>
 <pre><code class="lang-matlab">s = struct(<span class="string">'strings'</span>, <span class="cell">{{<span class="string">'Hello'</span>, <span class="string">'bye'</span>}</span>}, <span class="string">'length'</span>, <span class="matrix">[<span class="number">5</span>,<span class="number">3</span>]</span>)
-<span class="transposed_variable">s.</span>strings = 
+<span class="transposed_variable">s.</span>strings =
     <span class="string">'Hello'</span>    <span class="string">'bye'</span>
 
 <span class="transposed_variable">s.</span>(<span class="string">'length'</span>) =
@@ -646,6 +646,18 @@ s(<span class="number">1</span>) =
 </section>
   </div>
   <div class="slide hidden" id="slide-16">
+    <section class="slide-content"><h3 id="logical-operations">Logical operations</h3>
+<p>AND <code>and(a,b)</code>, <code>&amp;</code>
+OR <code>or(a,b)</code> , <code>|</code>
+NOT <code>not(a)</code> , <code>~</code>
+XOR <code>xor(a,b)</code></p>
+<p>Short-ckt AND <code>&amp;&amp;</code>
+short-ckt OR <code>||</code>.
+Short-circuit behaviour are useful when some condiions are unknown</p>
+<pre><code class="lang-matlab">compare = (exist(<span class="string">'myfun.m'</span>) == <span class="number">2</span>) &amp;&amp; myfun(x) &gt; y</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-17">
     <section class="slide-content"><h3 id="if-else-if-else">If, else-if, else</h3>
 <pre><code class="lang-matlab">a = <span class="number">4</span>;
 b = <span class="number">4</span>;
@@ -663,7 +675,7 @@ weather = <span class="string">'rainy'</span>;
 <span class="keyword">end</span></code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-17">
+  <div class="slide hidden" id="slide-18">
     <section class="slide-content"><h3 id="i-o">I/O</h3>
 <p>Getting Inputs</p>
 <pre><code class="lang-matlab">value_entered = input(<span class="string">'Enter an number: '</span>);
@@ -676,7 +688,7 @@ fav_num <span class="comment">% without a ';' the variable value gets displayed<
 <span class="built_in">disp</span>(<span class="matrix">[<span class="string">'User entered '</span>, num2str(value_entered)]</span>)</code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-18">
+  <div class="slide hidden" id="slide-19">
     <section class="slide-content"><h3 id="for-loop-or-is-it-hmmm-">for loop -- or is it? Hmmm..</h3>
 <pre><code class="lang-matlab"><span class="keyword">for</span> <span class="built_in">i</span> = some_1D_matrix
     <span class="comment">% for each element in the 1D matrix</span>
@@ -684,7 +696,7 @@ fav_num <span class="comment">% without a ';' the variable value gets displayed<
 <span class="keyword">end</span></code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-19">
+  <div class="slide hidden" id="slide-20">
     <section class="slide-content"><h3 id="for-loop-or-is-it-hmmm-">for loop -- or is it? Hmmm..</h3>
 <pre><code class="lang-matlab"><span class="keyword">for</span> <span class="built_in">i</span> = some_1D_matrix
     <span class="comment">% for each element in the 1D matrix</span>
@@ -695,7 +707,7 @@ fav_num <span class="comment">% without a ';' the variable value gets displayed<
 <span class="keyword">end</span></code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-20">
+  <div class="slide hidden" id="slide-21">
     <section class="slide-content"><h3 id="for-loop-or-is-it-hmmm-">for loop -- or is it? Hmmm..</h3>
 <pre><code class="lang-matlab"><span class="keyword">for</span> <span class="built_in">i</span> = some_1D_matrix
     <span class="comment">% for each element in the 1D matrix</span>
@@ -716,7 +728,7 @@ sequence_length = <span class="number">10</span>;
      <span class="number">1</span>     <span class="number">1</span>     <span class="number">2</span>     <span class="number">3</span>     <span class="number">5</span>     <span class="number">8</span>    <span class="number">13</span>    <span class="number">21</span>    <span class="number">34</span>    <span class="number">55</span>    <span class="number">89</span>   <span class="number">144</span></code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-21">
+  <div class="slide hidden" id="slide-22">
     <section class="slide-content"><h3 id="while-loop">While loop</h3>
 <pre><code class="lang-matlab"><span class="keyword">while</span> condition
     <span class="comment">% do something until condition not satisfied</span>
@@ -730,11 +742,25 @@ perfection = <span class="number">1000</span>;
 <span class="keyword">end</span></code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-22">
+  <div class="slide hidden" id="slide-23">
     <section class="slide-content"><h3 id="break-continue-break-continue-">Break, continue, break, continue...</h3>
+<p><code>break</code> is used to break a loop</p>
+<pre><code class="lang-matlab"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:<span class="number">100</span>
+    <span class="built_in">disp</span>(<span class="built_in">i</span>)
+    <span class="keyword">if</span> <span class="built_in">i</span> &gt; <span class="number">50</span>
+        <span class="keyword">break</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span></code></pre>
+<p><code>continue</code> is used to skip a iteration</p>
+<pre><code class="lang-matlab"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:<span class="number">20</span>
+    <span class="keyword">if</span> <span class="built_in">mod</span>(<span class="built_in">i</span>, <span class="number">3</span>) ~= <span class="number">0</span>
+        <span class="keyword">continue</span>
+    <span class="keyword">end</span>
+<span class="built_in">disp</span>(<span class="built_in">i</span>)
+<span class="keyword">end</span></code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-23">
+  <div class="slide hidden" id="slide-24">
     <section class="slide-content"><h3 id="file-handling">File Handling</h3>
 <p>Some functions that come handy: <code>fopen()</code>, <code>fgetl()</code>, <code>textscan()</code>, <code>fclose()</code>.</p>
 <pre><code class="lang-matlab">fid = fopen(<span class="string">'wiki.txt'</span>, <span class="string">'r'</span>);
@@ -751,10 +777,52 @@ perfection = <span class="number">1000</span>;
 <span class="keyword">end</span></code></pre>
 </section>
   </div>
-  <div class="slide hidden" id="slide-24">
-    <section class="slide-content"></section>
-  </div>
   <div class="slide hidden" id="slide-25">
+    <section class="slide-content"><h3 id="file-handling-functions">File Handling - functions</h3>
+<pre><code class="lang-matlab"><span class="comment">% open a CSV file and read to a matrix</span>
+matrix = csvread(<span class="string">'data_file.csv'</span>)
+<span class="comment">% If we want a filtered matrix</span>
+matrix = csvread(<span class="string">'data_file.csv'</span>, <span class="number">2</span>, <span class="number">0</span>); <span class="comment">% from row=3, col=1. (0 indexing)</span>
+
+<span class="comment">% excel sheets can be read using xlsread</span>
+<span class="matrix">[num, txt, raw]</span> = xlsread(filename);
+
+<span class="comment">% formatted text files can be easily parsed using textscan</span>
+C = textscan(fileID, <span class="string">'format'</span>)
+C = textscan(string, <span class="string">'format'</span>)
+
+str = <span class="string">'0.42 8.23 3.34 6.85'</span>;
+C = textscan(str, <span class="string">'%3.1f %*1d'</span>); <span class="comment">% %*1d tells textscan to neglect last one d</span>
+C<span class="cell">{<span class="number">1</span>}</span> =
+
+    <span class="number">0.4000</span>
+    <span class="number">8.2000</span>
+    <span class="number">3.5000</span>
+    <span class="number">6.8000</span></code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-26">
+    <section class="slide-content"><h3 id="plotting">Plotting</h3>
+<p>There is a lot of plotting functions in Matlab</p>
+<h4 id="plot-x-y-">plot(x, y)</h4>
+<pre><code class="lang-matlab">x = <span class="built_in">linspace</span>(<span class="number">0</span>, <span class="number">2</span>*<span class="built_in">pi</span>, <span class="number">100</span>);
+y = <span class="built_in">sin</span>(x);
+plot(x, y)
+title(<span class="string">'Plot of sin( x )'</span>)
+xlabel(<span class="string">'time'</span>)
+ylabel(<span class="string">'amplitude'</span>)
+xlim(<span class="matrix">[<span class="number">0</span> <span class="number">2</span>*pi]</span>)
+ylim(<span class="matrix">[-<span class="number">1</span> <span class="number">1</span>]</span>)</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-27">
+    <section class="slide-content"><h3 id="plotting">Plotting</h3>
+<p>There is a lot of plotting functions in Matlab</p>
+<h4 id="plot-x-y-">plot(x, y)</h4>
+<p>```matlab</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-28">
     <section class="slide-content"><div class="author">
   <h1 class="name">Prashanth G</h1>
     <h3 class="url">
