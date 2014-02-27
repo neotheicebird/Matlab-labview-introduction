@@ -551,7 +551,7 @@ for i = 1:length(seq)
 end
 diisp(total)
 
-####A better way?
+% is there a better way?
 disp(seq * seq');
 ```
 --
@@ -609,4 +609,35 @@ count_infs = sum(isinf(x(:)));
 ```
 --
 ###Test driven development
+####What is TDD?
+```matlab
+function test_suite = TestFliplr()
+initTestSuite
 
+function testIfFlipingIsAsWeWant()
+A = magic(3);
+assertEqual(fliplr(A), A(:, [3,2,1]))
+
+runtests
+Test suite: E:\project
+27-Feb-2014 20:40:00
+
+Starting test run with 1 test case.
+.
+PASSED in 0.293 seconds
+```
+--
+###Test driven development
+####Why is it useful?
+* Think about the structure of our code before implementation
+* Extra documentation
+* Confidence with the codebase
+* Guidance for anyone who reads the code
+* Rewarding work experience
+* In the long run, saves a lot of time
+--
+###Graphical User Interface
+#### GUIDE
+```matlab
+guide
+```
