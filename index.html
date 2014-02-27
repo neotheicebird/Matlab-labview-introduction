@@ -1,0 +1,926 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>LabView and Matlab - The beauty and the beast</title>
+  <style type="text/css">
+    body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #222;
+  background-color: #f7f7f7;
+  font-size: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+}
+
+.slide-content {
+  width: 800px;
+  height: 600px;
+  overflow: hidden;
+  margin: 80px auto 0 auto;
+  padding: 30px;
+
+  font-weight: 200;
+  font-size: 200%;
+  line-height: 1.375;
+}
+
+.controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.arrow {
+  width: 0; height: 0;
+  border: 30px solid #333;
+  float: left;
+  margin-right: 30px;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.prev {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+
+  border-left-width: 0;
+  border-right-width: 50px;
+}
+
+.next {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+
+  border-left-width: 50px;
+  border-right-width: 0;
+}
+
+.prev:hover {
+  border-right-color: #888;
+  cursor: pointer;
+}
+
+.next:hover {
+  border-left-color: #888;
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 300%;
+  line-height: 1.2;
+  text-align: center;
+  margin: 170px 0 0;
+}
+
+h2 {
+  font-size: 100%;
+  line-height: 1.2;
+  margin: 5px 0;
+  text-align: center;
+  font-weight: 200;
+}
+
+h3 {
+  font-size: 140%;
+  line-height: 1.2;
+  border-bottom: 1px solid #aaa;
+  margin: 0;
+  padding-bottom: 15px;
+}
+
+ul {
+  padding: 20px 0 0 60px;
+  font-weight: 200;
+  line-height: 1.375;
+}
+
+.author h1 {
+  font-size: 170%;
+  font-weight: 200;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.author h3 {
+  font-weight: 100;
+  text-align: center;
+  font-size: 95%;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: #44a4dd;
+}
+
+a:hover {
+  color: #66b5ff;
+}
+
+pre {
+  font-size: 60%;
+  line-height: 1.3;
+}
+
+.progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 3px;
+  background-color: #b4b4b4;
+
+  -webkit-transition: width 0.05s ease-out;
+  -moz-transition: width 0.05s ease-out;
+  -o-transition: width 0.05s ease-out;
+  transition: width 0.05s ease-out;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 850px) {
+
+  body {
+    font-size: 70%;
+  }
+
+  .slide-content {
+    width: auto;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  h1 {
+    margin-top: 120px;
+  }
+
+  .prev, .prev:hover {
+    border-right-color: rgba(135, 135, 135, 0.5);
+  }
+
+  .next, .next:hover {
+    border-left-color: rgba(135, 135, 135, 0.5);
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 50%;
+    overflow: hidden;
+  }
+
+  .slide-content {
+    padding: 10px;
+    margin-top: 10px;
+    height: 340px;
+  }
+
+  h1 {
+    margin-top: 50px;
+  }
+
+  ul {
+    padding-left: 25px;
+  }
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+  }
+
+  @page {
+    size: letter;
+  }
+
+  .hidden {
+    display: inline;
+  }
+
+  html {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  body {
+    margin: 0 auto !important;
+    border: 0;
+    padding: 0;
+    float: none !important;
+    overflow: visible;
+    background: none !important;
+    font-size: 52%;
+  }
+
+  .progress, .controls {
+    display: none;
+  }
+
+  .slide {
+    position: static;
+  }
+
+  .slide-content {
+    border: 1px solid #222;
+    margin-top: 0;
+    margin-bottom: 40px;
+    height: 3.5in;
+    overflow: visible;
+  }
+
+  .slide:nth-child(even) {
+    /* 2 slides per page */
+    page-break-before: always;
+  }
+}
+
+/*
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+*/
+
+code, pre {
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  overflow: auto;
+  padding: 6px 10px;
+}
+
+code {
+  padding: 0 5px;
+}
+
+pre>code {
+  margin: 0; padding: 0;
+  border: none;
+  background: transparent;
+}
+
+pre .comment,
+pre .template_comment,
+pre .diff .header,
+pre .javadoc {
+  color: #998;
+  font-style: italic
+}
+
+pre .keyword,
+pre .css .rule .keyword,
+pre .winutils,
+pre .javascript .title,
+pre .nginx .title,
+pre .subst,
+pre .request,
+pre .status {
+  color: #333;
+  font-weight: bold
+}
+
+pre .number,
+pre .hexcolor,
+pre .ruby .constant {
+  color: #099;
+}
+
+pre .string,
+pre .tag .value,
+pre .phpdoc,
+pre .tex .formula {
+  color: #d14
+}
+
+pre .title,
+pre .id {
+  color: #900;
+  font-weight: bold
+}
+
+pre .javascript .title,
+pre .lisp .title,
+pre .clojure .title,
+pre .subst {
+  font-weight: normal
+}
+
+pre .class .title,
+pre .haskell .type,
+pre .vhdl .literal,
+pre .tex .command {
+  color: #458;
+  font-weight: bold
+}
+
+pre .tag,
+pre .tag .title,
+pre .rules .property,
+pre .django .tag .keyword {
+  color: #000080;
+  font-weight: normal
+}
+
+pre .attribute,
+pre .variable,
+pre .lisp .body {
+  color: #008080
+}
+
+pre .regexp {
+  color: #009926
+}
+
+pre .class {
+  color: #458;
+  font-weight: bold
+}
+
+pre .symbol,
+pre .ruby .symbol .string,
+pre .lisp .keyword,
+pre .tex .special,
+pre .prompt {
+  color: #990073
+}
+
+pre .built_in,
+pre .lisp .title,
+pre .clojure .built_in {
+  color: #0086b3
+}
+
+pre .preprocessor,
+pre .pi,
+pre .doctype,
+pre .shebang,
+pre .cdata {
+  color: #999;
+  font-weight: bold
+}
+
+pre .deletion {
+  background: #fdd
+}
+
+pre .addition {
+  background: #dfd
+}
+
+pre .diff .change {
+  background: #0086b3
+}
+
+pre .chunk {
+  color: #aaa
+}
+
+#slide-1 {
+  background: url('media/waves.jpg');
+  background-size: cover;
+  color: #100c08;
+}
+
+th {
+      text-align:left;
+}
+
+  </style>
+</head>
+<body>
+    <div class="progress">
+    <div class="progress-bar"></div>
+  </div>
+
+  <div class="slide" id="slide-1">
+    <section class="slide-content"><h1 id="matlab-and-labview">Matlab and Labview</h1>
+<h2 id="an-introduction">An Introduction</h2>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-2">
+    <section class="slide-content"><h3 id="the-gameplan">The Gameplan</h3>
+<p>The tutorial is going to run from 3:00pm to 6:15pm</p>
+<ul>
+<li>3:00 to 3:45 - Basic intro to Matlab</li>
+<li>3:45 to 4:15 - Quick view of some intermediate and advanced topics</li>
+<li>4:15 to 4:30 - An interactive problem solving session</li>
+<li>4:30 to 4:45 - Break</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-3">
+    <section class="slide-content"><h3 id="the-gameplan">The Gameplan</h3>
+<ul>
+<li>4:45 to 5:15 - Basic intro to Labview</li>
+<li>5:15 to 5:45 - Event based programming</li>
+<li>5:45 to 6:15 - An interactive problem solving session</li>
+<li>After that   - Go home and watch TV</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-4">
+    <section class="slide-content"><h3 id="which-way-does-matlab-works-best-">Which way does Matlab works best?</h3>
+<h4 id="there-are-many-ways-in-which-programming-languages-solve-a-problem-">There are many ways in which programming languages solve a problem:</h4>
+<ul>
+<li>Procedural -- C, Pascal</li>
+<li>Declarative -- SQL</li>
+<li>Object-oriented -- Java</li>
+<li>Functional -- Haskell, ML family</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-5">
+    <section class="slide-content"><h3 id="the-functional-way">The Functional way</h3>
+<ul>
+<li>Pure functions: <code>sin(x)</code>, <code>length(x)</code></li>
+<li>Side effects - interaction with the outside world<ol>
+<li><code>pause(t)</code>, <code>rand()</code></li>
+<li>Rarely used</li>
+</ol>
+</li>
+<li>Opposite of Object-Oriented Programming - why?<ol>
+<li>Objects are capsules containing states and methods that change states</li>
+<li>Funtional programming wants to avoid state changes</li>
+</ol>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-6">
+    <section class="slide-content"><h3 id="the-functional-way">The Functional way</h3>
+<p>Why do we want to avoid states and objects?</p>
+<ul>
+<li>Formal provability - I need a mathematical proof that your program works.</li>
+<li>Modularity - Break it into pieces</li>
+<li>Ease of debugging and testing - loose coupling, unit testing</li>
+<li>Composability - DRY (Don&#39;t repeat yourself)</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-7">
+    <section class="slide-content"><h3 id="variables">Variables</h3>
+<p>Numbers and matrices:</p>
+<pre><code class="lang-matlab">A = <span class="number">1</span>; <span class="comment">% all numbers are floating-point value</span>
+
+empty_list = <span class="matrix">[]</span>;
+
+my_list = <span class="matrix">[<span class="number">1</span> <span class="number">5</span> <span class="number">2</span> <span class="number">4</span> <span class="number">3</span>]</span>;
+
+list_1 = <span class="number">1</span>:<span class="number">10</span>; <span class="comment">% : operator is used to make equidistant list of numbers</span>
+
+list_2 = <span class="built_in">zeros</span>(<span class="number">4</span>,<span class="number">5</span>); <span class="comment">% A 4x5 matrix of zeros</span>
+
+list_3 = <span class="built_in">ones</span>(<span class="number">5</span>); <span class="comment">% A 5x5 matrix of ones</span>
+
+list_4 = <span class="number">0</span>:<span class="number">0.5</span>:<span class="number">5</span>;
+
+list_5 = <span class="built_in">linspace</span>(<span class="number">1</span>,<span class="number">5</span>,<span class="number">11</span>)</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-8">
+    <section class="slide-content"><h3 id="variables">Variables</h3>
+<p>Strings:</p>
+<pre><code class="lang-matlab">str = <span class="string">'Hello, world'</span>;
+
+blank_string = blanks(n); <span class="comment">% a string which is n spaces</span>
+
+string_array = <span class="matrix">[<span class="string">'one  '</span>; <span class="string">'two  '</span>; <span class="string">'three'</span>]</span>; <span class="comment">% 2D array of chars</span>
+string_array =
+
+one
+two
+three
+
+concat_strings = <span class="matrix">[<span class="string">'Nice'</span> <span class="string">'day'</span> <span class="string">'right?'</span>]</span>;
+concat_strings = nicedayright?
+
+concat_strings = strcat(<span class="string">'remove  '</span>, <span class="string">'trailing   '</span>, <span class="string">'spaces   '</span>);
+concat_strings = <span class="string">'removetrailingspaces'</span></code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-9">
+    <section class="slide-content"><h3 id="variables">Variables</h3>
+<p>Cells:</p>
+<pre><code class="lang-matlab">battery = <span class="cell">{}</span>; <span class="comment">% a cell is a container which can hold any variable</span>
+
+happy_strings = <span class="cell">{<span class="string">'one'</span>, <span class="string">'two'</span>, <span class="string">'three'</span>}</span>
+happy_strings<span class="cell">{<span class="number">2</span>}</span>
+<span class="built_in">ans</span> = two
+
+cell_array = <span class="cell">{<span class="string">'text'</span>, <span class="number">2</span>, [<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>], magic(<span class="number">3</span>)}</span>
+cell_array =
+<span class="cell">{
+  [<span class="number">1</span>,<span class="number">1</span>] = text
+  [<span class="number">1</span>,<span class="number">2</span>] =  <span class="number">2</span>
+  [<span class="number">1</span>,<span class="number">3</span>] =
+     <span class="number">1</span>   <span class="number">2</span>   <span class="number">3</span>
+  [<span class="number">1</span>,<span class="number">4</span>] =
+     <span class="number">8</span>   <span class="number">1</span>   <span class="number">6</span>
+     <span class="number">3</span>   <span class="number">5</span>   <span class="number">7</span>
+     <span class="number">4</span>   <span class="number">9</span>   <span class="number">2</span>
+}</span></code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-10">
+    <section class="slide-content"><h3 id="variables">Variables</h3>
+<p>Structure:</p>
+<pre><code class="lang-matlab"><span class="comment">% create struct with specified fields and values</span>
+s = struct(<span class="string">'field1'</span>, value1, <span class="string">'field2'</span>, value2, ...)
+s = struct <span class="comment">% a 1x1 structure with no fields</span>
+
+s = struct(<span class="string">'thing'</span>, <span class="cell">{<span class="string">'ferrari'</span>, <span class="string">'apple'</span>}</span>, <span class="string">'color'</span>, <span class="cell">{<span class="string">'red'</span>}</span>)
+s =
+
+  <span class="number">1</span>x2 struct array containing the fields:
+
+    thing
+    color
+
+s(<span class="number">1</span>) =
+
+  scalar structure containing the fields:
+
+    thing = ferrari
+    color = red</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-11">
+    <section class="slide-content"><h3 id="variables">Variables</h3>
+<p>Structure</p>
+<pre><code class="lang-matlab">s = struct(<span class="string">'strings'</span>, <span class="cell">{{<span class="string">'Hello'</span>, <span class="string">'bye'</span>}</span>}, <span class="string">'length'</span>, <span class="matrix">[<span class="number">5</span>,<span class="number">3</span>]</span>)
+<span class="transposed_variable">s.</span>strings = 
+    <span class="string">'Hello'</span>    <span class="string">'bye'</span>
+
+<span class="transposed_variable">s.</span>(<span class="string">'length'</span>) =
+    <span class="number">5</span>    <span class="number">3</span></code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-12">
+    <section class="slide-content"><h3 id="arithmetic-operations">Arithmetic operations</h3>
+<table style="width:800px">
+<tr>
+  <th>Symbol</th>
+  <th>Function</th>
+  <th>Operation</th>
+</tr>
+<tr>
+  <td>+</td>
+  <td>plus()</td>
+  <td>Addition</td>
+</tr>
+<tr>
+  <td>-</td>
+  <td>minus()</td>
+  <td>Subtraction</td>
+</tr>
+<tr>
+  <td>*</td>
+  <td>mtimes()</td>
+  <td>Multiplication</td>
+</tr>
+<tr>
+  <td>/</td>
+  <td>rdivide()</td>
+  <td>Division</td>
+</tr>
+
+<tr>
+  <td>^</td>
+  <td>power()</td>
+  <td>Power</td>
+</tr>
+<tr>
+  <td>.(operator)</td>
+  <td></td>
+  <td>Element-wise operation</td>
+</tr>
+</table></section>
+  </div>
+  <div class="slide hidden" id="slide-13">
+    <section class="slide-content"><h3 id="arithmetic-operations">Arithmetic operations</h3>
+<pre><code class="lang-matlab">A = <span class="number">1</span>:<span class="number">5</span>;</code></pre>
+<p>Sum of all elements:</p>
+<pre><code class="lang-matlab">sum(A)
+<span class="built_in">ans</span> =  <span class="number">15</span></code></pre>
+<p>Cumulative sum:</p>
+<pre><code class="lang-matlab">cumsum(A)
+<span class="built_in">ans</span> =
+    <span class="number">1</span>    <span class="number">3</span>    <span class="number">6</span>   <span class="number">10</span>   <span class="number">15</span></code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-14">
+    <section class="slide-content"><h3 id="arithmetic-operations">Arithmetic operations</h3>
+<pre><code class="lang-matlab">A = <span class="number">1</span>:<span class="number">5</span>;</code></pre>
+<p>Product:</p>
+<pre><code class="lang-matlab">prod(A)
+<span class="built_in">ans</span> =  <span class="number">120</span></code></pre>
+<p>Cumulative product:</p>
+<pre><code class="lang-matlab">cumprod(A)
+<span class="built_in">ans</span> =
+     <span class="number">1</span>     <span class="number">2</span>     <span class="number">6</span>    <span class="number">24</span>   <span class="number">120</span></code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-15">
+    <section class="slide-content"><h3 id="relational-operations">Relational operations</h3>
+<p>It is pretty much the same as any other languages. The operators are
+<code>&gt;</code>,<code>&lt;</code>,<code>&gt;=</code>,<code>&lt;=</code>,<code>==</code></p>
+<p>Only operator that might be different is the NOT EQUAL operator:
+<code>~=</code></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-16">
+    <section class="slide-content"><h3 id="if-else-if-else">If, else-if, else</h3>
+<pre><code class="lang-matlab">a = <span class="number">4</span>;
+b = <span class="number">4</span>;
+<span class="keyword">if</span> (a&lt;b)
+    <span class="built_in">j</span> = -<span class="number">1</span>;
+<span class="keyword">else</span> <span class="keyword">if</span> (a&gt;b)
+    <span class="built_in">j</span> = <span class="number">2</span>;
+<span class="keyword">else</span>
+    <span class="built_in">j</span> = <span class="number">3</span>
+<span class="keyword">end</span>
+
+weather = <span class="string">'rainy'</span>;
+<span class="keyword">if</span> ((a&lt;b) | (a&gt;b)) &amp; strcmp(weather, <span class="string">'rainy'</span>)
+    <span class="built_in">disp</span>(<span class="string">'Feels great!'</span>)
+<span class="keyword">end</span></code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-17">
+    <section class="slide-content"><h3 id="i-o">I/O</h3>
+<p>Getting Inputs</p>
+<pre><code class="lang-matlab">value_entered = input(<span class="string">'Enter an number: '</span>);
+
+string_entered = input(<span class="string">'Enter string: '</span>, <span class="string">'s'</span>);</code></pre>
+<p>Display outputs:</p>
+<pre><code class="lang-matlab">fav_num = input(<span class="string">'What is your favourite number?'</span>)
+fav_num <span class="comment">% without a ';' the variable value gets displayed</span>
+
+<span class="built_in">disp</span>(<span class="matrix">[<span class="string">'User entered '</span>, num2str(value_entered)]</span>)</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-18">
+    <section class="slide-content"><h3 id="for-loop-or-is-it-hmmm-">for loop -- or is it? Hmmm..</h3>
+<pre><code class="lang-matlab"><span class="keyword">for</span> <span class="built_in">i</span> = some_1D_matrix
+    <span class="comment">% for each element in the 1D matrix</span>
+    <span class="comment">% Do something</span>
+<span class="keyword">end</span></code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-19">
+    <section class="slide-content"><h3 id="for-loop-or-is-it-hmmm-">for loop -- or is it? Hmmm..</h3>
+<pre><code class="lang-matlab"><span class="keyword">for</span> <span class="built_in">i</span> = some_1D_matrix
+    <span class="comment">% for each element in the 1D matrix</span>
+    <span class="comment">% Do something</span>
+<span class="keyword">end</span></code></pre>
+<pre><code class="lang-matlab"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:<span class="number">10</span>
+    <span class="built_in">disp</span>(<span class="built_in">i</span>)
+<span class="keyword">end</span></code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-20">
+    <section class="slide-content"><h3 id="for-loop-or-is-it-hmmm-">for loop -- or is it? Hmmm..</h3>
+<pre><code class="lang-matlab"><span class="keyword">for</span> <span class="built_in">i</span> = some_1D_matrix
+    <span class="comment">% for each element in the 1D matrix</span>
+    <span class="comment">% Do something</span>
+<span class="keyword">end</span></code></pre>
+<pre><code class="lang-matlab"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:<span class="number">10</span>
+    <span class="built_in">disp</span>(<span class="built_in">i</span>)
+<span class="keyword">end</span></code></pre>
+<pre><code class="lang-matlab"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="built_in">linspace</span>(<span class="number">1</span>,<span class="number">10</span>,<span class="number">1</span>)
+    <span class="built_in">disp</span>(<span class="built_in">i</span>)
+<span class="keyword">end</span></code></pre>
+<pre><code class="lang-matlab">fibo_matrix = <span class="matrix">[<span class="number">1</span> <span class="number">1</span>]</span>;
+sequence_length = <span class="number">10</span>;
+<span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:sequence_length
+    fibo_matrix = <span class="matrix">[fibo_matrix, sum(fibo_matrix(end-<span class="number">1</span>:end))]</span>;
+<span class="keyword">end</span>
+<span class="built_in">disp</span>(fibo_matrix)
+     <span class="number">1</span>     <span class="number">1</span>     <span class="number">2</span>     <span class="number">3</span>     <span class="number">5</span>     <span class="number">8</span>    <span class="number">13</span>    <span class="number">21</span>    <span class="number">34</span>    <span class="number">55</span>    <span class="number">89</span>   <span class="number">144</span></code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-21">
+    <section class="slide-content"><h3 id="while-loop">While loop</h3>
+<pre><code class="lang-matlab"><span class="keyword">while</span> condition
+    <span class="comment">% do something until condition not satisfied</span>
+<span class="keyword">end</span>
+
+tried = <span class="number">0</span>;
+perfection = <span class="number">1000</span>;
+<span class="keyword">while</span> tried &lt; perfection
+    <span class="built_in">disp</span>(<span class="string">'try once more'</span>)
+    tried = tried + <span class="number">1</span>;
+<span class="keyword">end</span></code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-22">
+    <section class="slide-content"><h3 id="break-continue-break-continue-">Break, continue, break, continue...</h3>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-23">
+    <section class="slide-content"><h3 id="file-handling">File Handling</h3>
+<p>Some functions that come handy: <code>fopen()</code>, <code>fgetl()</code>, <code>textscan()</code>, <code>fclose()</code>.</p>
+<pre><code class="lang-matlab">fid = fopen(<span class="string">'wiki.txt'</span>, <span class="string">'r'</span>);
+<span class="keyword">try</span>
+    line = fgetl(fid);
+    <span class="keyword">while</span> ischar(line)
+        <span class="built_in">disp</span>(line)
+        line = fgetl(fid);
+    <span class="keyword">end</span>
+    <span class="comment">% we can do more operations with the strings</span>
+<span class="keyword">catch</span> err
+    fclose(fid);
+    rethrow(err);
+<span class="keyword">end</span></code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-24">
+    <section class="slide-content"></section>
+  </div>
+  <div class="slide hidden" id="slide-25">
+    <section class="slide-content"><div class="author">
+  <h1 class="name">Prashanth G</h1>
+    <h3 class="url">
+      <a href="http://github.com/neotheicebird">http://github.com/neotheicebird</a>
+    </h3>
+    <h3 class="email">
+      <a href="mailto:neotheicebird@gmail.com">neotheicebird@gmail.com</a>
+    </h3>
+</div>
+</section>
+  </div>
+
+  <div class="controls">
+    <div class="arrow prev"></div>
+    <div class="arrow next"></div>
+  </div>
+
+
+  <script type="text/javascript">
+    /**
+ * Returns the current page number of the presentation.
+ */
+function currentPosition() {
+  return parseInt(document.querySelector('.slide:not(.hidden)').id.slice(6));
+}
+
+
+/**
+ * Navigates forward n pages
+ * If n is negative, we will navigate in reverse
+ */
+function navigate(n) {
+  var position = currentPosition();
+  var numSlides = document.getElementsByClassName('slide').length;
+
+  /* Positions are 1-indexed, so we need to add and subtract 1 */
+  var nextPosition = (position - 1 + n) % numSlides + 1;
+
+  /* Normalize nextPosition in-case of a negative modulo result */
+  nextPosition = (nextPosition - 1 + numSlides) % numSlides + 1;
+
+  document.getElementById('slide-' + position).classList.add('hidden');
+  document.getElementById('slide-' + nextPosition).classList.remove('hidden');
+
+  updateProgress();
+  updateURL();
+  updateTabIndex();
+}
+
+
+/**
+ * Updates the current URL to include a hashtag of the current page number.
+ */
+function updateURL() {
+  window.history.replaceState({} , null, '#' + currentPosition());
+}
+
+
+/**
+ * Sets the progress indicator.
+ */
+function updateProgress() {
+  var progressBar = document.querySelector('.progress-bar');
+
+  if (progressBar !== null) {
+    var numSlides = document.getElementsByClassName('slide').length;
+    var position = currentPosition() - 1;
+    var percent = (numSlides === 1) ? 100 : 100 * position / (numSlides - 1);
+    progressBar.style.width = percent.toString() + '%';
+  }
+}
+
+
+/**
+ * Removes tabindex property from all links on the current slide, sets
+ * tabindex = -1 for all links on other slides. Prevents slides from appearing
+ * out of control.
+ */
+function updateTabIndex() {
+  var allLinks = document.querySelectorAll('.slide a');
+  var position = currentPosition();
+  var currentPageLinks = document.getElementById('slide-' + position).querySelectorAll('a');
+  var i;
+
+  for (i = 0; i < allLinks.length; i++) {
+    allLinks[i].setAttribute('tabindex', -1);
+  }
+
+  for (i = 0; i < currentPageLinks.length; i++) {
+    currentPageLinks[i].removeAttribute('tabindex');
+  }
+}
+
+/**
+ * Determines whether or not we are currently in full screen mode
+ */
+function isFullScreen() {
+  return document.fullscreenElement ||
+         document.mozFullScreenElement ||
+         document.webkitFullscreenElement ||
+         document.msFullscreenElement;
+}
+
+/**
+ * Toggle fullScreen mode on document element.
+ * Works on chrome (>= 15), firefox (>= 9), ie (>= 11), opera(>= 12.1), safari (>= 5).
+ */
+function toggleFullScreen() {
+  /* Convenient renames */
+  var docElem = document.documentElement;
+  var doc = document;
+
+  docElem.requestFullscreen =
+      docElem.requestFullscreen ||
+      docElem.msRequestFullscreen ||
+      docElem.mozRequestFullScreen ||
+      docElem.webkitRequestFullscreen.bind(docElem, Element.ALLOW_KEYBOARD_INPUT);
+
+  doc.exitFullscreen =
+      doc.exitFullscreen ||
+      doc.msExitFullscreen ||
+      doc.mozCancelFullScreen ||
+      doc.webkitExitFullscreen;
+
+  isFullScreen() ? doc.exitFullscreen() : docElem.requestFullscreen();
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Update the tabindex to prevent weird slide transitioning
+  updateTabIndex();
+
+  // If the location hash specifies a page number, go to it.
+  var page = window.location.hash.slice(1);
+  if (page) {
+    navigate(parseInt(page) - 1);
+  }
+
+  document.onkeydown = function (e) {
+    var kc = e.keyCode;
+
+    // left, down, H, J, backspace, PgUp - BACK
+    // up, right, K, L, space, PgDn - FORWARD
+    // enter - FULLSCREEN
+    if (kc === 37 || kc === 40 || kc === 8 || kc === 72 || kc === 74 || kc === 33) {
+      navigate(-1);
+    } else if (kc === 38 || kc === 39 || kc === 32 || kc === 75 || kc === 76 || kc === 34) {
+      navigate(1);
+    } else if (kc === 13) {
+      toggleFullScreen();
+    }
+  };
+
+  if (document.querySelector('.next') && document.querySelector('.prev')) {
+    document.querySelector('.next').onclick = function (e) {
+      e.preventDefault();
+      navigate(1);
+    };
+
+    document.querySelector('.prev').onclick = function (e) {
+      e.preventDefault();
+      navigate(-1);
+    };
+  }
+});
+
+
+  </script>
+</body>
+</html>

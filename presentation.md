@@ -3,7 +3,7 @@ author:
   name: Prashanth G
   email: neotheicebird@gmail.com
   url: http://github.com/neotheicebird
-output: presentation.html
+output: index.html
 style: style.css
 --
 # Matlab and Labview
@@ -118,8 +118,38 @@ cell_array =
 ```
 --
 ###Variables
-Struct:
+Structure:
 ```matlab
+% create struct with specified fields and values
+s = struct('field1', value1, 'field2', value2, ...)
+s = struct % a 1x1 structure with no fields
+
+s = struct('thing', {'ferrari', 'apple'}, 'color', {'red'})
+s =
+
+  1x2 struct array containing the fields:
+
+    thing
+    color
+
+s(1) =
+
+  scalar structure containing the fields:
+
+    thing = ferrari
+    color = red
+
+```
+--
+###Variables
+Structure
+```matlab
+s = struct('strings', {{'Hello', 'bye'}}, 'length', [5,3])
+s.strings = 
+    'Hello'    'bye'
+
+s.('length') =
+    5    3
 
 ```
 --
@@ -207,7 +237,41 @@ It is pretty much the same as any other languages. The operators are
 Only operator that might be different is the NOT EQUAL operator:
 `~=`
 --
-for loop -- or is it? Hmmm..
+###If, else-if, else
+```matlab
+a = 4;
+b = 4;
+if (a<b)
+    j = -1;
+else if (a>b)
+    j = 2;
+else
+    j = 3
+end
+
+weather = 'rainy';
+if ((a<b) | (a>b)) & strcmp(weather, 'rainy')
+    disp('Feels great!')
+end
+```
+--
+###I/O
+
+Getting Inputs
+```matlab
+value_entered = input('Enter an number: ');
+
+string_entered = input('Enter string: ', 's');
+```
+Display outputs:
+```matlab
+fav_num = input('What is your favourite number?')
+fav_num % without a ';' the variable value gets displayed
+
+disp(['User entered ', num2str(value_entered)])
+```
+--
+###for loop -- or is it? Hmmm..
 
 ```matlab
 for i = some_1D_matrix
@@ -217,7 +281,7 @@ end
 ```
 --
 
-for loop -- or is it? Hmmm..
+###for loop -- or is it? Hmmm..
 
 ```matlab
 for i = some_1D_matrix
@@ -233,7 +297,7 @@ end
 ```
 --
 
-for loop -- or is it? Hmmm..
+###for loop -- or is it? Hmmm..
 
 ```matlab
 for i = some_1D_matrix
@@ -252,55 +316,47 @@ for i = linspace(1,10,1)
     disp(i)
 end
 ```
+```matlab
+fibo_matrix = [1 1];
+sequence_length = 10;
+for i = 1:sequence_length
+    fibo_matrix = [fibo_matrix, sum(fibo_matrix(end-1:end))];
+end
+disp(fibo_matrix)
+     1     1     2     3     5     8    13    21    34    55    89   144
+```
 --
-### Zen of <s>Python</s> Matlab
->Beautiful is better than ugly.
+###While loop
+```matlab
+while condition
+    % do something until condition not satisfied
+end
 
->Explicit is better than implicit.
-
->Simple is better than complex.
-
->Complex is better than complicated.
-
+tried = 0;
+perfection = 1000;
+while tried < perfection
+    disp('try once more')
+    tried = tried + 1;
+end
+```
 --
-
-### Zen of <s>Python</s> Matlab
->Flat is better than nested.
-
->Sparse is better than dense.
-
->Readability counts.
-
->Special cases aren't special enough to break the rules.
-
+###Break, continue, break, continue...
 --
+###File Handling
 
-### Zen of <s>Python</s> Matlab
-
->Although practicality beats purity.
-
->Errors should never pass silently.
-
->Unless explicitly silenced.
-
->In the face of ambiguity, refuse the temptation to guess.
-
->There should be one-- and preferably only one --obvious way to do it.
-
+Some functions that come handy: `fopen()`, `fgetl()`, `textscan()`, `fclose()`.
+```matlab
+fid = fopen('wiki.txt', 'r');
+try
+    line = fgetl(fid);
+    while ischar(line)
+        disp(line)
+        line = fgetl(fid);
+    end
+    % we can do more operations with the strings
+catch err
+    fclose(fid);
+    rethrow(err);
+end
+```
 --
-
-### Zen of <s>Python</s> Matlab
->Although that way may not be obvious at first unless you're Dutch.
-
->Now is better than never.
-
-
->Although never is often better than *right* now.
-
->If the implementation is hard to explain, it's a bad idea.
-
->If the implementation is easy to explain, it may be a good idea.
-
->Namespaces are one honking great idea -- let's do more of those!
-
-
