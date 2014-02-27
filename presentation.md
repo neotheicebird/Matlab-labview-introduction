@@ -27,6 +27,8 @@ The tutorial is going to run from 3:00pm to 6:15pm
 * After that   - Go home and watch TV
 
 --
+# Introduction to Matlab -- Fundamentals
+--
 ###Which way does Matlab works best?
 ####There are many ways in which programming languages solve a problem:
 * Procedural -- C, Pascal
@@ -145,7 +147,7 @@ s(1) =
 Structure
 ```matlab
 s = struct('strings', {{'Hello', 'bye'}}, 'length', [5,3])
-s.strings = 
+s.strings =
     'Hello'    'bye'
 
 s.('length') =
@@ -236,6 +238,20 @@ It is pretty much the same as any other languages. The operators are
 
 Only operator that might be different is the NOT EQUAL operator:
 `~=`
+--
+###Logical operations
+AND `and(a,b)`, `&`
+OR `or(a,b)` , `|`
+NOT `not(a)` , `~`
+XOR `xor(a,b)`
+
+Short-ckt AND `&&`
+short-ckt OR `||`.
+Short-circuit behaviour are useful when some condiions are unknown
+
+```matlab
+compare = (exist('myfun.m') == 2) && myfun(x) > y
+```
 --
 ###If, else-if, else
 ```matlab
@@ -341,6 +357,24 @@ end
 ```
 --
 ###Break, continue, break, continue...
+`break` is used to break a loop
+```matlab
+for i = 1:100
+    disp(i)
+    if i > 50
+        break
+    end
+end
+```
+`continue` is used to skip a iteration
+```matlab
+for i = 1:20
+    if mod(i, 3) ~= 0
+        continue
+    end
+disp(i)
+end
+```
 --
 ###File Handling
 
@@ -360,3 +394,134 @@ catch err
 end
 ```
 --
+###File Handling - functions
+```matlab
+% open a CSV file and read to a matrix
+matrix = csvread('data_file.csv')
+% If we want a filtered matrix
+matrix = csvread('data_file.csv', 2, 0); % from row=3, col=1. (0 indexing)
+
+% excel sheets can be read using xlsread
+[num, txt, raw] = xlsread(filename);
+
+% formatted text files can be easily parsed using textscan
+C = textscan(fileID, 'format')
+C = textscan(string, 'format')
+
+str = '0.42 8.23 3.34 6.85';
+C = textscan(str, '%3.1f %*1d'); % %*1d tells textscan to neglect last one d
+C{1} =
+
+    0.4000
+    8.2000
+    3.5000
+    6.8000
+```
+--
+###Plotting
+There is a lot of plotting functions in Matlab
+####plot(x, y)
+```matlab
+x = linspace(0, 2*pi, 100);
+y = sin(x);
+plot(x, y)
+title('Plot of sin( x )')
+xlabel('time')
+ylabel('amplitude')
+xlim([0 2*pi])
+ylim([-1 1])
+```
+--
+###Plotting
+####plot(x, y) - multiple curves in one plot
+```matlab
+x = linspace(0, 5, 500);
+y = exp(-x).*cos(2*pi*x);
+y1 = exp(-x).*sin(-2*pi*x);
+
+plot(x, y, 'ro', x, y1, 'b.')
+```
+--
+###Plotting
+####subplot(total_rows, total_cols, horiz_index)
+```matlab
+figure
+subplot(2,2,1)
+text(0.5, 0.5, 'subplot(2,2,1)')
+subplot(2,2,2)
+text(0.5, 0.5, 'subplot(2,2,2)')
+subplot(2,2,3)
+text(0.5, 0.5, 'subplot(2,2,3)')
+```
+--
+###Plotting
+####3D plots
+```matlab
+[x,y] = meshgrid([-2:.2:2]) % make a 2D plane
+Z = x.*exp(-x.^2 - y.^2); % Z is a surface
+
+figure
+surf(x, y, Z, gradient(Z)) % surface plot with gradient Z
+
+colorbar % color scale
+```
+Alternatives: `mesh()`, `imagesc`, `plot3()`
+--
+# Let's solve a problem
+## word statistics
+--
+# Intermediate and Advanced topics
+## Lets' dig deeper
+--
+###How to write functions?
+```matlab
+function result = my_function(param1, param2)
+    % What should the function do?
+return
+```
+All functions need to be placed in their own file.
+
+```matlab
+function prime_number = next_prime(number)
+    % find the next prime_number
+return
+```
+--
+###How to write functions?
+```matlab
+% we can evaluate a function using its handle
+fhandle = @my_function; % just use @ symbol
+
+% to make function from string
+fhandle = str2func('my_function')
+
+% to evaluate the function
+output = feval(@fhandle, param1, param2);
+```
+--
+###Indexing and more magic tricks
+```matlab
+A = 6:10;
+% we probably know this
+A([3 5]) =
+    8  10
+A([2:4]) =
+    7  8  9
+
+A = magic(3);
+A =
+    8  1  6
+    3  5  7
+    4  9  2
+% linear indexing - This is fun
+A(4) = 1 % What does that mean?
+
+% logical indexing
+B = logical( [1 0 0; 0 1 0; 0 0 1]);
+A(B) =
+    8
+    5
+    2
+```
+--
+

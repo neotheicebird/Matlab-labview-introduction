@@ -4,6 +4,25 @@
   color: #100c08;
 }
 
+#slide-4 {
+  background: url('media/sand.png');
+  background-size: cover;
+  color: #eee;
+}
+
+#slide-31 {
+  background: url('media/plane.jpg');
+  background-size: cover;
+  color: #eee;
+}
+
+#slide-32 {
+  background: url('media/ship.jpg');
+  background-size: cover;
+  color: #100c08;
+}
+
 th {
       text-align:left;
 }
+
