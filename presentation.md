@@ -524,4 +524,89 @@ A(B) =
     2
 ```
 --
+###Vectorization -- The real power lies here
+
+```matlab
+% find sum of squares of all numbers from 1 to N
+seq = 1:100;
+
+% traditional way
+total = 0;
+for i = 1:length(seq)
+    total = total + seq(i)^2;
+end
+disp(total)
+```
+--
+###Vectorization -- The real power lies here
+
+```matlab
+% find sum of squares of all numbers from 1 to N
+seq = 1:100;
+
+% traditional way
+total = 0;
+for i = 1:length(seq)
+    total = total + seq(i)^2;
+end
+diisp(total)
+
+####A better way?
+disp(seq * seq');
+```
+--
+###Vectorization -- The real power lies here
+####Logical array operations
+```matlab
+marks = [10, 15, 45, 55, 65, 22, 99, 100, 60, 35];
+pass = marks( marks >= 30 );
+```
+--
+###Vectorization -- The real power lies here
+####Matrix operations
+```matlab
+% suppose we need to evaluate a function F of two variables:
+% F(x,y) = x*exp(-x^2 - y^2)
+
+x = -2:0.2:2;
+y = 0:0.2:1;
+[X, Y] = meshgrid(x,y);
+F = X.*exp(-X.^2 - Y.^2);
+```
+without `meshgrid` we would have written two for loops
+--
+###Vectorization -- The real power lies here
+####Matrix operations
+```matlab
+% we often need to construct a matrix with certain size and structure
+
+A = ones(5, 10).*10;
+
+A = [1 2 3];
+B = repmat(A, 3, 2)
+B =
+    1  2  3  1  2  3
+    1  2  3  1  2  3
+    1  2  3  1  2  3
+
+```
+--
+###Vectorization -- The real power lies here
+####Ordering, setting, counting operations
+```matlab
+% sort
+A = [2 3 1 2 2 3 3 3 4 1]
+sort(A)
+% unique elements
+unique(A)
+ans =
+    1  2  3  4
+```
+Count NaN and Inf elements
+```matlab
+count_nans = sum(isnan(x(:)));
+count_infs = sum(isinf(x(:)));
+```
+--
+###Test driven development
 
