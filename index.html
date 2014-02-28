@@ -416,6 +416,24 @@ pre .chunk {
   color: #100c08;
 }
 
+#slide-45 {
+  background: url('media/bulb.jpg');
+  background-size: cover;
+  color: #100c08;
+}
+
+#slide-46 {
+  background: url('media/motherboard.jpg');
+  background-size: cover;
+  color: #eee;
+}
+
+#slide-47 {
+  background: url('media/lego.jpg');
+  background-size: cover;
+  color: #eee;
+}
+
 th {
       text-align:left;
 }
@@ -435,11 +453,11 @@ th {
   </div>
   <div class="slide hidden" id="slide-2">
     <section class="slide-content"><h3 id="the-gameplan">The Gameplan</h3>
-<p>The tutorial is going to run from 3:00pm to 6:15pm</p>
+<p>The tutorial is going to run from 3:00pm to 6:00pm</p>
 <ul>
-<li>3:00 to 3:45 - Basic intro to Matlab</li>
-<li>3:45 to 4:15 - Quick view of some intermediate and advanced topics</li>
-<li>4:15 to 4:30 - An interactive problem solving session</li>
+<li>3:15 to 3:45 - Getting started with Matlab</li>
+<li>3:45 to 4:00 - An interactive problem solving session</li>
+<li>4:00 to 4:30 - Quick discussion on some intermediate and advanced topics</li>
 <li>4:30 to 4:45 - Break</li>
 </ul>
 </section>
@@ -449,8 +467,8 @@ th {
 <ul>
 <li>4:45 to 5:15 - Basic intro to Labview</li>
 <li>5:15 to 5:45 - Event based programming</li>
-<li>5:45 to 6:15 - An interactive problem solving session</li>
-<li>After that   - Go home and watch TV</li>
+<li>5:45 to 6:15 - Some examples and simple problem solving</li>
+<li>Thats&#39; it</li>
 </ul>
 </section>
   </div>
@@ -465,7 +483,7 @@ th {
 <li>Procedural -- C, Pascal</li>
 <li>Declarative -- SQL</li>
 <li>Object-oriented -- Java</li>
-<li>Functional -- Haskell, ML family</li>
+<li>Functional -- Haskell, ML</li>
 </ul>
 </section>
   </div>
@@ -708,7 +726,8 @@ string_entered = input(<span class="string">'Enter string: '</span>, <span class
 <pre><code class="lang-matlab">fav_num = input(<span class="string">'What is your favourite number?'</span>)
 fav_num <span class="comment">% without a ';' the variable value gets displayed</span>
 
-<span class="built_in">disp</span>(<span class="matrix">[<span class="string">'User entered '</span>, num2str(value_entered)]</span>)</code></pre>
+<span class="built_in">disp</span>(<span class="matrix">[<span class="string">'User entered '</span>, num2str(value_entered)]</span>)
+fprintf(<span class="string">'User entered %d\n'</span>, value_entered)</code></pre>
 </section>
   </div>
   <div class="slide hidden" id="slide-20">
@@ -954,7 +973,7 @@ total = <span class="number">0</span>;
 <span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:<span class="built_in">length</span>(seq)
     total = total + seq(<span class="built_in">i</span>)^<span class="number">2</span>;
 <span class="keyword">end</span>
-diisp(total)
+<span class="built_in">disp</span>(total)
 
 <span class="comment">% is there a better way?</span>
 <span class="built_in">disp</span>(seq * <span class="transposed_variable">seq'</span>);</code></pre>
@@ -1016,7 +1035,7 @@ count_infs = sum(<span class="built_in">isinf</span>(x(:)));</code></pre>
 <pre><code class="lang-matlab"><span class="function"><span class="keyword">function</span> <span class="title">test_suite</span> = <span class="title">TestFliplr</span><span class="params">()</span></span>
 initTestSuite
 
-<span class="function"><span class="keyword">function</span> <span class="title">testIfFlipingIsAsWeWant</span><span class="params">()</span></span>
+<span class="function"><span class="keyword">function</span> <span class="title">testIfFlipingHappensAsWeWant</span><span class="params">()</span></span>
 A = <span class="built_in">magic</span>(<span class="number">3</span>);
 assertEqual(<span class="built_in">fliplr</span>(A), A(:, <span class="matrix">[<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>]</span>))
 
@@ -1049,6 +1068,18 @@ PASSED in <span class="number">0.293</span> seconds</code></pre>
 </section>
   </div>
   <div class="slide hidden" id="slide-45">
+    <section class="slide-content"><h1 id="questions-">Questions?</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-46">
+    <section class="slide-content"><h1 id="lets-dive-into-labview">Lets&#39; dive into Labview</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-47">
+    <section class="slide-content"><h1 id="thank-you-">Thank you!</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-48">
     <section class="slide-content"><div class="author">
   <h1 class="name">Prashanth G</h1>
     <h3 class="url">

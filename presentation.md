@@ -11,10 +11,10 @@ style: style.css
 --
 
 ###The Gameplan
-The tutorial is going to run from 3:00pm to 6:15pm
-* 3:00 to 3:45 - Basic intro to Matlab
-* 3:45 to 4:15 - Quick view of some intermediate and advanced topics
-* 4:15 to 4:30 - An interactive problem solving session
+The tutorial is going to run from 3:00pm to 6:00pm
+* 3:15 to 3:45 - Getting started with Matlab
+* 3:45 to 4:00 - An interactive problem solving session
+* 4:00 to 4:30 - Quick discussion on some intermediate and advanced topics
 * 4:30 to 4:45 - Break
 
 --
@@ -23,8 +23,8 @@ The tutorial is going to run from 3:00pm to 6:15pm
 
 * 4:45 to 5:15 - Basic intro to Labview
 * 5:15 to 5:45 - Event based programming
-* 5:45 to 6:15 - An interactive problem solving session
-* After that   - Go home and watch TV
+* 5:45 to 6:15 - Some examples and simple problem solving
+* Thats' it
 
 --
 # Introduction to Matlab -- Fundamentals
@@ -34,7 +34,7 @@ The tutorial is going to run from 3:00pm to 6:15pm
 * Procedural -- C, Pascal
 * Declarative -- SQL
 * Object-oriented -- Java
-* Functional -- Haskell, ML family
+* Functional -- Haskell, ML
 
 --
 ###The Functional way
@@ -285,6 +285,7 @@ fav_num = input('What is your favourite number?')
 fav_num % without a ';' the variable value gets displayed
 
 disp(['User entered ', num2str(value_entered)])
+fprintf('User entered %d\n', value_entered)
 ```
 --
 ###for loop -- or is it? Hmmm..
@@ -549,7 +550,7 @@ total = 0;
 for i = 1:length(seq)
     total = total + seq(i)^2;
 end
-diisp(total)
+disp(total)
 
 % is there a better way?
 disp(seq * seq');
@@ -614,7 +615,7 @@ count_infs = sum(isinf(x(:)));
 function test_suite = TestFliplr()
 initTestSuite
 
-function testIfFlipingIsAsWeWant()
+function testIfFlipingHappensAsWeWant()
 A = magic(3);
 assertEqual(fliplr(A), A(:, [3,2,1]))
 
@@ -641,3 +642,10 @@ PASSED in 0.293 seconds
 ```matlab
 guide
 ```
+--
+# Questions?
+--
+# Lets' dive into Labview
+--
+# Thank you!
+
